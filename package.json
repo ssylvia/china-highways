@@ -1,0 +1,22 @@
+{
+  "name": "china-highways",
+  "version": "0.1.0",
+  "description": "Imagery reveals the scope and ambition of China's ongoing expansion of its highway network",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ssylvia/china-highways"
+  },
+  "author": "Esri Story Maps",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ssylvia/china-highways/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-concat": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-jshint": "~0.4.3"
+  }
+}
