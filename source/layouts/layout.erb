@@ -74,11 +74,6 @@
 </head>
 <body class="<%= data.advancedSettings.includeDijitCSS && data.advancedSettings.dijitsTheme ? data.advancedSettings.dijitsTheme : "" %>">
 	
-	<div id="app-load-screen">
-		<div id="loader"></div>
-		<h4 id="loading-message">Loading <%= data.advancedSettings.appName %></h4>
-	</div>
-
 	<div id="bitly-overlay" class="modal bitly-modal">
 		<a class="icon-close right" onclick="$('.bitly-modal').removeClass('visible');"></a>		
 		<h4>Bitly link to share</h4>

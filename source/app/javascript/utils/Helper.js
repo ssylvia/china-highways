@@ -9,11 +9,6 @@ define(["lib/spin.min.js","lib/jquery/jquery-1.10.2.min","storymaps/utils/Social
 	* Dependencies: Jquery 1.10.2
 	*/
 
-	// Show ajax laoder on load
-	var _appLoader = ajaxLoader('loader'),
-	_loadingMessage = $("#loading-message"),
-	_appLoadScreen = $("#app-load-screen");
-
 	function ajaxLoader(elementId)
 	{
 		var options = {
@@ -60,17 +55,6 @@ define(["lib/spin.min.js","lib/jquery/jquery-1.10.2.min","storymaps/utils/Social
 	}
 
 	return {
-
-		updateLoadingMessage: function(message)
-		{
-			_loadingMessage.html(message);
-		},
-
-		removeLoadScreen: function()
-		{
-			_appLoadScreen.fadeOut();
-			_appLoader.stop();
-		},
 
 		enableRegionLayout: function()
 		{
