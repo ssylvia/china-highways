@@ -13,6 +13,7 @@ module.exports = function(grunt) {
 
 		clean: {
 
+			tempData: ['source/resources/buildTools/data/tempData.json'],
 			build: ['build/app/javascript/*'],
 			jsLib: ['build/lib']
 
@@ -43,6 +44,20 @@ module.exports = function(grunt) {
 					out: 'build/app/javascript/<%= advSettings.appIdentifier %>-viewer.min.js'
 				}
 			}
+		},
+
+		exec: {
+			googleData: {
+				cmd: 'node source/resources/buildTools/data/googleDataToModule.js'
+			}
+		},
+
+		gss_pull: {
+			pullChinaData: {
+				files: {
+					'source/resources/buildTools/data/tempData.json': ['0AuzbB0k65O2YdEJ1TkZ4QXJxcldRUEF2ZDl2eWY3ZEE']
+				}
+			}
 		}
 
 	});
@@ -53,12 +68,19 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-exec');
+	grunt.loadNpmTasks('grunt-gss-pull');
 
 	// Default task(s).
 	grunt.registerTask('default', [
 
 		'jshint',
 		'clean:build',
+
+		// Update Data
+		'gss_pull',
+		'exec',
+		'clean:tempData',
 
 		/*
 		* Minify project JS using require.js
@@ -68,6 +90,14 @@ module.exports = function(grunt) {
 		*/
 		'requirejs'
 
+	]);
+
+	grunt.registerTask('updateData', [
+
+		'gss_pull',
+		'exec',
+		'clean:tempData'
+		
 	]);
 
 };

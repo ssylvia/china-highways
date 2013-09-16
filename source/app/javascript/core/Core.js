@@ -1,5 +1,5 @@
-define(["storymaps/utils/Helper","dojo/on","esri/map","esri/arcgis/utils"],
-	function(Helper,On,Map){
+define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
+	function(Helper,Data,On,Map){
 
 		/**
 		* Core
@@ -14,6 +14,7 @@ define(["storymaps/utils/Helper","dojo/on","esri/map","esri/arcgis/utils"],
 		{
 			Helper.enableRegionLayout();
 			loadMap();
+			console.log(Data);
 		}
 
 		function loadMap()

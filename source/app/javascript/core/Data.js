@@ -1,0 +1,1 @@
+define([],	function(){		var appData = [{field1: 1,field2: 'Hello',field3: 'World'},{field1: 2,field2: 'Foo',field3: 'Bar'},{field1: 3,field2: 'Bar',field3: 'Foo'}];		return {			data: appData		};	});
