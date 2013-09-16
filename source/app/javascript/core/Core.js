@@ -1,5 +1,5 @@
 define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
-	function(Helper,Data,On,Map){
+	function(Helper,Highways,On,Map){
 
 		/**
 		* Core
@@ -14,15 +14,18 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 		{
 			Helper.enableRegionLayout();
 			loadMap();
-			console.log(Data);
 		}
 
 		function loadMap()
 		{
 			var map = new Map("map",{
 				basemap: "satellite",
-				center: [-122.45,37.75],
-				zoom: 13
+				center: [Highways.data[0].long,Highways.data[0].lat],
+				zoom: Highways.data[0].zoom
+			});
+
+			On(map,"load",function(){
+				map.disableScrollWheelZoom();
 			});
 
 			On.once(map,"update-end",function(){
@@ -32,7 +35,6 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 
 		function appReady()
 		{
-			Helper.removeLoadScreen();
 		}
 
 		return {

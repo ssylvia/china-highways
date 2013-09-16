@@ -1,6 +1,22 @@
+@import "compass/css3/opacity";
+
 @import "base";
 @import "storymaps";
 
 #map .container{
 	max-width: none;
+}
+
+#text-panel{
+	position: absolute;
+	background: {
+		color: $black;
+	}
+	right: 10%;
+	height: 100%;
+	width: 20%;
+	min-width: 280px;
+	max-width: 400px;
+	@include opacity(0.8); 
+	z-index: 100;
 }
