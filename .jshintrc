@@ -14,22 +14,7 @@
 		"$": false,
 		"esri": false,
 
-		"APPCFG": true,
-		"configOptions": false,
-		"commonConfig": true,
-		"version": false,
-		"i18n": false,
-		"app": true,
-		"loadingIndicator": false,
-		"mediaNotFoundHandler": false,
-
-		"FB": false,
-		"SwipeView": false,
-		"EXIF": false,
-		"Spinner": false,
-		"MegaPixImage": false,
-		"Hammer": false,
-		"iScroll": false
+		"Swiper": false
 	},
 	
 	"expr": true,

@@ -10,31 +10,59 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 		* Dependencies: Jquery 1.10.2
 		*/
 
+		var _swipePane;
+		var _map;
+		var _dataIndex = 0;
+
 		function init()
 		{
 			Helper.enableRegionLayout();
+			loadSwiper();
 			loadMap();
+		}
+		function loadSwiper()
+		{
+			var swipePane = new Swiper('.swiper-container',{
+				mode: 'vertical',
+				loop: false,
+				keyboardControl: true,
+				mousewheelControl: true,
+				onSlideChangeEnd: function(swiper){
+					_dataIndex = swiper.activeIndex;
+					updateMap();
+				}
+			});
+
+			_swipePane = swipePane;
+
+			for (var i=0; i < Highways.data.length; i++){
+				appendNewSlide(i);
+			}
 		}
 
 		function loadMap()
 		{
-			var map = new Map("map",{
+			_map = new Map("map",{
 				basemap: "satellite",
-				center: [Highways.data[0].long,Highways.data[0].lat],
-				zoom: Highways.data[0].zoom
-			});
-
-			On(map,"load",function(){
-				map.disableScrollWheelZoom();
-			});
-
-			On.once(map,"update-end",function(){
-				appReady();
+				center: [Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],
+				zoom: Highways.data[_dataIndex].zoom,
+				maxZoom: 17
 			});
 		}
 
-		function appReady()
+		function appendNewSlide(index)
 		{
+			var newSlide = _swipePane.createSlide('\
+				<h1 class="item-title">'+ Highways.data[index].title +'</h1>\
+				<p class="item-description">'+ Highways.data[index].description +'</p>\
+			');
+
+			newSlide.append();
+		}
+
+		function updateMap()
+		{
+			_map.centerAndZoom([Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],Highways.data[_dataIndex].zoom);
 		}
 
 		return {

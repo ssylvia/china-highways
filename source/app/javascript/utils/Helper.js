@@ -1,5 +1,5 @@
-define(["lib/spin.min.js","lib/jquery/jquery-1.10.2.min","storymaps/utils/SocialSharing"], 
-	function(Spinner){
+define(["storymaps/utils/SocialSharing"], 
+	function(){
 	/**
 	* Helper
 	* @class Helper
@@ -8,33 +8,6 @@ define(["lib/spin.min.js","lib/jquery/jquery-1.10.2.min","storymaps/utils/Social
 	*
 	* Dependencies: Jquery 1.10.2
 	*/
-
-	function ajaxLoader(elementId)
-	{
-		var options = {
-			lines: 16, // The number of lines to draw
-			length: 7, // The length of each line
-			width: 7, // The line thickness
-			radius: 30, // The radius of the inner circle
-			corners: 0, // Corner roundness (0..1)
-			rotate: 0, // The rotation offset
-			direction: 1, // 1: clockwise, -1: counterclockwise
-			color: '#000', // #rgb or #rrggbb or array of colors
-			speed: 1.1, // Rounds per second
-			trail: 25, // Afterglow percentage
-			shadow: true, // Whether to render a shadow
-			hwaccel: true, // Whether to use hardware acceleration
-			className: 'ajax-loader', // The CSS class to assign to the spinner
-			zIndex: 2e9, // The z-index (defaults to 2000000000)
-			top: 'auto', // Top position relative to parent in px
-			left: 'auto' // Left position relative to parent in px
-		};
-
-		var target = document.getElementById(elementId);
-		var loader = new Spinner(options).spin(target);
-
-		return loader;
-	}
 
 	function regionLayout()
 	{
