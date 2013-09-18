@@ -26,7 +26,6 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 				mode: 'vertical',
 				loop: false,
 				keyboardControl: true,
-				mousewheelControl: true,
 				onSlideChangeEnd: function(swiper){
 					_dataIndex = swiper.activeIndex;
 					updateMap();
@@ -38,6 +37,15 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 			for (var i=0; i < Highways.data.length; i++){
 				appendNewSlide(i);
 			}
+
+			$("body").mousewheel(function(event, delta, deltaX, deltaY){
+				if (deltaY < 0){
+					_swipePane.swipeNext();
+				}
+				else if(deltaY > 0){
+					_swipePane.swipePrev();
+				}
+			});
 		}
 
 		function loadMap()
@@ -47,6 +55,11 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 				center: [Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],
 				zoom: Highways.data[_dataIndex].zoom,
 				maxZoom: 17
+			});
+
+			_map.on("load",function(){
+				_map.disableScrollWheelZoom();
+				_map.disableKeyboardNavigation();
 			});
 		}
 

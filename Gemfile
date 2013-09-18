@@ -4,5 +4,6 @@ source 'http://rubygems.org'
 
 gem "middleman", "~>3.1.4"
 gem "wdm", "~>0.0.3", :platform => [:mswin, :mingw]
+gem "middleman-minify-html"
 
 gem "arcgis-framework", :git => "git@github.com:ArcGIS/arcgis-for-developers-css.git", :tag => "0.1.5"

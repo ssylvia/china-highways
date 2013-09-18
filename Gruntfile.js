@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 		clean: {
 
 			tempData: ['source/resources/buildTools/data/tempData.json'],
-			build: ['build/app/javascript/*'],
+			build: ['build/app/javascript/*','build/resources/buildTools'],
 			jsLib: ['build/lib']
 
 		},
@@ -38,6 +38,17 @@ module.exports = function(grunt) {
 			main: {
 				src: ['build/lib/temp-lib.min.js','build/app/javascript/<%= advSettings.appIdentifier %>.min.js'],
 				dest: 'build/app/javascript/<%= advSettings.appIdentifier %>.min.js'
+			}
+		},
+
+		uglify: {
+			jsLib: {
+				files: [{
+					expand: true,
+					cwd: 'build/',
+					src:['lib/temp-lib.min.js'],
+					dest: 'build/',
+				}]
 			}
 		},
 
@@ -122,7 +133,8 @@ module.exports = function(grunt) {
 		'concat:libIE',
 		'concat:libCSS',
 
-		// Minify CSS
+		// Minify external libraries
+		'uglify:jsLib',
 		'cssmin',
 
 		/*

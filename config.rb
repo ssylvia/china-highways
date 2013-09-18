@@ -27,6 +27,7 @@ set :isProduction, true
 
 activate :minify_css
 activate :run_grunt
+activate :minify_html
 
 activate :relative_assets
 
