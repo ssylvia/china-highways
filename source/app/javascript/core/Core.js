@@ -13,6 +13,8 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 		var _swipePane;
 		var _map;
 		var _dataIndex = 0;
+		var _scrollDelayed = false;
+		var _swipeOnWheelReady = true;
 
 		function init()
 		{
@@ -39,13 +41,47 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 			}
 
 			$("body").mousewheel(function(event, delta, deltaX, deltaY){
-				if (deltaY < 0){
-					_swipePane.swipeNext();
+
+				if (_swipeOnWheelReady){
+				
+					var slide = $(".swiper-slide.swiper-slide-active");
+					var slideHeight = slide.outerHeight();
+					var scrollTop = slide.scrollTop();
+					var scrollHeight = slide.prop('scrollHeight');
+					
+					if (deltaY < 0 && slideHeight + scrollTop === scrollHeight){
+						if(_scrollDelayed){
+							_swipePane.swipeNext();
+						}
+						_scrollDelayed = true;
+						delayScroll();
+					}
+					else if(deltaY > 0 && scrollTop === 0){
+						if(_scrollDelayed){
+							_swipePane.swipePrev();
+						}
+						else{
+							delayScroll();
+						}
+						_scrollDelayed = true;
+					}
+					else{
+						_scrollDelayed = false;
+						slide.scrollTop(scrollTop - event.originalEvent.wheelDeltaY);
+					}
+
 				}
-				else if(deltaY > 0){
-					_swipePane.swipePrev();
-				}
+
 			});
+		}
+
+		function delayScroll()
+		{
+			var scrollDelay = 500;
+			_swipeOnWheelReady = false;
+			setTimeout(function(){
+				_swipeOnWheelReady = true;
+			},scrollDelay);
 		}
 
 		function loadMap()
