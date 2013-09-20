@@ -1,6 +1,7 @@
 var title = "China Highways";
 
 var data = require("./tempData.json");
+
 var dataObj = data[title];
 
 var newDataStr = "["
@@ -14,10 +15,10 @@ for (i = 0; i < dataObj.length; i++){
 	for (j in obj){
 		if (j !== "rowNumber"){
 			if (isNaN(obj[j])){
-				temp = temp + j + ": '" + obj[j] + "',";
+				temp = temp + j + ": '" + escape(obj[j]) + "',";
 			}
 			else{
-				temp = temp + j + ": " + obj[j] + ",";
+				temp = temp + j + ": " + escape(obj[j]) + ",";
 			}	
 		}
 	}

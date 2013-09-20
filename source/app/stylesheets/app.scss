@@ -72,7 +72,7 @@ body {
 
 .item-description{	
 	color: $white;
-	margin: 5%;
+	margin: 10%;
 	color: $light-gray;
 	font: {
 		size: 1.1em;
@@ -99,6 +99,7 @@ body {
 
 .touch .item-description{
 	display: none;
+	margin: 5%;
 }
 
 .touch .expanded .item-description{

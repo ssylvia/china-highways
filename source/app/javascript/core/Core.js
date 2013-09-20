@@ -119,7 +119,7 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 		function loadMap()
 		{
 			_map = new Map("map",{
-				basemap: "satellite",
+				basemap: "streets",
 				center: [Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],
 				zoom: Highways.data[_dataIndex].zoom,
 				maxZoom: 17
@@ -134,8 +134,8 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 		function appendNewSlide(index)
 		{
 			var newSlide = _swipePane.createSlide('\
-				<h1 class="item-title">'+ Highways.data[index].title +'</h1>\
-				<p class="item-description">'+ Highways.data[index].description +'</p>\
+				<h1 class="item-title">'+ unescape(Highways.data[index].title) +'</h1>\
+				<p class="item-description">'+ unescape(Highways.data[index].description) +'</p>\
 			');
 
 			newSlide.append();
@@ -143,6 +143,13 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 
 		function updateMap()
 		{
+			if (_dataIndex > 0 && _map.getBasemap() !== "satellite"){
+				_map.setBasemap("satellite");
+			}
+			else if(_dataIndex === 0){
+				_map.setBasemap("streets");
+			}
+
 			_map.centerAndZoom([Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],Highways.data[_dataIndex].zoom);
 		}
 
