@@ -32,6 +32,10 @@ body {
 	bottom: 15%;
 }
 
+.touch #story-pane.expanded{
+	bottom: 0;
+}
+
 .backdrop{
 	position: absolute;
 	background: {
@@ -86,7 +90,7 @@ body {
 	text-overflow: ellipsis;
 }
 
-.expanded .touch .item-title{
+.touch .expanded .item-title{
 	margin: 5%;
 	white-space: normal;
 	overflow: hidden;
@@ -97,6 +101,6 @@ body {
 	display: none;
 }
 
-.expanded .touch .item-description{
+.touch .expanded .item-description{
 	display: block;
 }

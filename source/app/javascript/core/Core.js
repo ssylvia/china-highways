@@ -82,7 +82,13 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 				_swipePane.resizeFix();
 
 				$(".swiper-slide").click(function(){
-					
+					if ($("#story-pane").hasClass("expanded")){
+						$("#story-pane").removeClass("expanded").height($(".swiper-slide-active .item-title").outerHeight() + 30);
+					}
+					else{
+						$("#story-pane").addClass("expanded").css("height", "100%");
+					}
+					_swipePane.resizeFix();
 				});
 			}
 
