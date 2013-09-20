@@ -50,10 +50,17 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 						var slideHeight = slide.outerHeight();
 						var scrollTop = slide.scrollTop();
 						var scrollHeight = slide.prop('scrollHeight');
+
+						$("#scroll-indicator").slideUp("fast");
 						
 						if (delta < 0 && slideHeight + scrollTop === scrollHeight){
 							if(_scrollDelayed){
 								_swipePane.swipeNext();
+							}
+							else{
+								if(_dataIndex < Highways.data.length - 1){
+									$("#scroll-indicator").slideDown("fast");
+								}
 							}
 							_scrollDelayed = true;
 							delayScroll();

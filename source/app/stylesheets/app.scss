@@ -36,6 +36,26 @@ body {
 	bottom: 0;
 }
 
+#scroll-indicator{
+	position: absolute;
+	color: $lightest-gray;
+	bottom: 0;
+	width: 100%;
+	margin: 15px 0;
+	text: {
+		align: center;
+	}
+	font: {
+		style: italic;
+		weight: bold;
+	}
+	z-index: 101;
+}
+
+.touch #scroll-indicator{
+	display: none;
+}
+
 .backdrop{
 	position: absolute;
 	background: {
@@ -72,7 +92,12 @@ body {
 
 .item-description{	
 	color: $white;
-	margin: 10%;
+	margin: {
+		top: 10%;
+		left: 10%;
+		bottom: 15%;
+		right: 10%;
+	}
 	color: $light-gray;
 	font: {
 		size: 1.1em;
