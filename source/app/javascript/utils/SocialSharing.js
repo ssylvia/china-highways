@@ -1,4 +1,4 @@
-define([], 
+define(["lib/all/jquery/jquery-1.10.2.min.js"], 
 	function(){
 	/**
 	* Social Sharing

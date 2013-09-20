@@ -21,10 +21,10 @@ module.exports = function(grunt) {
 
 		concat: {
 			options: {
-				separator: ';'
+				separator: '\n\n'
 			},
 			libAll: {
-				src: ['source/lib/all/**/*.js'],
+				src: ['source/lib/all/swiper/idangerous.swiper-2.2.min.js'],
 				dest: 'build/lib/temp-lib.min.js'
 			},
 			libIE: {
@@ -120,7 +120,7 @@ module.exports = function(grunt) {
 	// Default task(s).
 	grunt.registerTask('default', [
 
-		'jshint',
+		// 'jshint',
 		'clean:build',
 
 		// Update Data

@@ -1,5 +1,5 @@
-define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
-	function(Helper,Highways,On,Map){
+define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esri/map","lib/all/jquery/jquery-1.10.2.min.js","lib/all/jquery.mousewheel.js"],
+	function(Helper,Highways,Has,On,Map){
 
 		/**
 		* Core
@@ -25,54 +25,80 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/on","esri/map"],
 		function loadSwiper()
 		{
 			var swipePane = new Swiper('.swiper-container',{
-				mode: 'vertical',
+				mode: getSwipeMode(),
 				loop: false,
 				keyboardControl: true,
 				onSlideChangeEnd: function(swiper){
 					_dataIndex = swiper.activeIndex;
-					updateMap();
+					updateMap();_swipePane.resizeFix();
 				}
 			});
 
 			_swipePane = swipePane;
+			window.test = _swipePane;
 
 			for (var i=0; i < Highways.data.length; i++){
 				appendNewSlide(i);
 			}
 
-			$("body").mousewheel(function(event, delta, deltaX, deltaY){
+			if(!Has("touch")){
+				$("body").mousewheel(function(event, delta){
 
-				if (_swipeOnWheelReady){
-				
-					var slide = $(".swiper-slide.swiper-slide-active");
-					var slideHeight = slide.outerHeight();
-					var scrollTop = slide.scrollTop();
-					var scrollHeight = slide.prop('scrollHeight');
+					if (_swipeOnWheelReady){
 					
-					if (deltaY < 0 && slideHeight + scrollTop === scrollHeight){
-						if(_scrollDelayed){
-							_swipePane.swipeNext();
-						}
-						_scrollDelayed = true;
-						delayScroll();
-					}
-					else if(deltaY > 0 && scrollTop === 0){
-						if(_scrollDelayed){
-							_swipePane.swipePrev();
-						}
-						else{
+						var slide = $(".swiper-slide.swiper-slide-active");
+						var slideHeight = slide.outerHeight();
+						var scrollTop = slide.scrollTop();
+						var scrollHeight = slide.prop('scrollHeight');
+						
+						if (delta < 0 && slideHeight + scrollTop === scrollHeight){
+							if(_scrollDelayed){
+								_swipePane.swipeNext();
+							}
+							_scrollDelayed = true;
 							delayScroll();
 						}
-						_scrollDelayed = true;
-					}
-					else{
-						_scrollDelayed = false;
-						slide.scrollTop(scrollTop - event.originalEvent.wheelDeltaY);
+						else if(delta > 0 && scrollTop === 0){
+							if(_scrollDelayed){
+								_swipePane.swipePrev();
+							}
+							else{
+								delayScroll();
+							}
+							_scrollDelayed = true;
+						}
+						else{
+							_scrollDelayed = false;
+							slide.scrollTop(scrollTop - (30 * delta));
+						}
+
 					}
 
-				}
+				});
+			}
+			else{
+				$("body").addClass("touch");
+				$("#story-pane").height($(".swiper-slide-active .item-title").outerHeight() + 30);
+				_swipePane.resizeFix();
 
-			});
+				$(".swiper-slide").click(function(){
+					
+				});
+			}
+
+			if(Has("ie") < 9){
+				$(".backdrop").fadeTo(0,"0.8");
+			}
+		}
+
+		function getSwipeMode()
+		{
+			if (Has("touch")){
+				return 'horizontal';
+			}
+			else{
+				return 'vertical';
+			}
 		}
 
 		function delayScroll()

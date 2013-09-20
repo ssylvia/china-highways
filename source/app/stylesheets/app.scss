@@ -4,6 +4,12 @@
 @import "base";
 @import "storymaps";
 
+body {
+	background: {
+		color: $darkest-gray;
+	}
+}
+
 #map .container{
 	max-width: none;
 }
@@ -16,6 +22,14 @@
 	min-width: 280px;
 	max-width: 400px; 
 	z-index: 100;
+}
+
+.touch #story-pane{
+	width: 100%;
+	max-width: none;
+	min-width: none;
+	right: auto;
+	bottom: 15%;
 }
 
 .backdrop{
@@ -40,6 +54,10 @@
 	overflow: hidden;
 }
 
+.touch .swiper-slide{
+	overflow: auto;
+}
+
 .item-title{
 	color: $white;
 	margin: 10%;
@@ -48,8 +66,9 @@
 	}
 }
 
-.item-description{
-	@extend .item-title;
+.item-description{	
+	color: $white;
+	margin: 5%;
 	color: $light-gray;
 	font: {
 		size: 1.1em;
@@ -58,21 +77,26 @@
 	text:{
 		align: justify;
 	}
-	margin: {
-		bottom: 10%;
-	}
 }
 
-::-webkit-scrollbar {
-    width: 12px;
+.touch .item-title{
+	margin: 15px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
- 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    border-radius: 10px;
+
+.expanded .touch .item-title{
+	margin: 5%;
+	white-space: normal;
+	overflow: hidden;
+	text-overflow: inherit;
 }
- 
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+
+.touch .item-description{
+	display: none;
+}
+
+.expanded .touch .item-description{
+	display: block;
 }

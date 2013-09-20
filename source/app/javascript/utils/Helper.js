@@ -1,4 +1,4 @@
-define(["storymaps/utils/SocialSharing"], 
+define(["storymaps/utils/SocialSharing","lib/all/jquery/jquery-1.10.2.min.js"], 
 	function(){
 	/**
 	* Helper

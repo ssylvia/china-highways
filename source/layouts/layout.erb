@@ -65,6 +65,10 @@
 			{
 				name: 'storymaps',
 				location: location.pathname.replace(/\/[^/]+$/, '/') + 'app/javascript'
+			},
+			{
+				name: 'lib',
+				location: location.pathname.replace(/\/[^/]+$/, '/') + 'lib'
 			}
 			]
 		};
@@ -118,9 +122,7 @@
 	<script type="text/javascript">
 		require(["app/javascript/<%= data.advancedSettings.appIdentifier %>.min.js"]);
 	<% else %>
-	<%= javascript_include_tag "/lib/all/jquery/jquery-1.10.2.min" %>
 	<%= javascript_include_tag "/lib/all/swiper/idangerous.swiper-2.2.min" %>
-	<%= javascript_include_tag "/lib/all/jquery.mousewheel" %>
 	
 	<script type="text/javascript">
 		require(["storymaps/core/Core"],function(Core){
