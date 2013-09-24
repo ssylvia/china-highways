@@ -18,9 +18,9 @@ body {
 	position: absolute;
 	right: 10%;
 	height: 100%;
-	width: 20%;
-	min-width: 280px;
-	max-width: 400px; 
+	width: 23%;
+	min-width: 300px;
+	max-width: 450px; 
 	z-index: 100;
 }
 
@@ -36,22 +36,6 @@ body {
 	bottom: 0;
 }
 
-#scroll-indicator{
-	position: absolute;
-	color: $lightest-gray;
-	bottom: 0;
-	width: 100%;
-	margin: 15px 0;
-	text: {
-		align: center;
-	}
-	font: {
-		style: italic;
-		weight: bold;
-	}
-	z-index: 101;
-}
-
 .touch #scroll-indicator{
 	display: none;
 }
@@ -64,7 +48,7 @@ body {
 	top: 0;
 	height: 100%;
 	width: 100%;
-	@include opacity(0.8);
+	@include opacity(0.6);
 }
 
 .swiper-container{
@@ -98,7 +82,6 @@ body {
 		bottom: 15%;
 		right: 10%;
 	}
-	color: $light-gray;
 	font: {
 		size: 1.1em;
 		family: "Palatino Linotype", "Book Antiqua", Palatino, serif;

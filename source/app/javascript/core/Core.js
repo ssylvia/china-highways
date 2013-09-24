@@ -1,5 +1,25 @@
-define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esri/map","lib/all/jquery/jquery-1.10.2.min.js","lib/all/jquery.mousewheel.js"],
-	function(Helper,Highways,Has,On,Map){
+define(["storymaps/utils/Helper",
+	"storymaps/core/Data",
+	"dojo/has","dojo/on",
+	"dojo/sniff",
+	"esri/map",
+	"esri/layers/GraphicsLayer",
+	"esri/graphic",
+	"esri/geometry/Point",
+	"esri/symbols/PictureMarkerSymbol",
+	"lib/all/jquery/jquery-1.10.2.min.js",
+	"lib/all/jquery.mousewheel.js"],
+	function(Helper,
+		Highways,
+		Has,
+		On,
+		Sniff,
+		Map,
+		GraphicsLayer,
+		Graphic,
+		Point,
+		PictureMarkerSymbol
+		){
 
 		/**
 		* Core
@@ -12,6 +32,7 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 
 		var _swipePane;
 		var _map;
+		var _locations;
 		var _dataIndex = 0;
 		var _scrollDelayed = false;
 		var _swipeOnWheelReady = true;
@@ -30,7 +51,8 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 				keyboardControl: true,
 				onSlideChangeEnd: function(swiper){
 					_dataIndex = swiper.activeIndex;
-					updateMap();_swipePane.resizeFix();
+					updateMap();
+					_swipePane.resizeFix();
 				}
 			});
 
@@ -50,17 +72,10 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 						var slideHeight = slide.outerHeight();
 						var scrollTop = slide.scrollTop();
 						var scrollHeight = slide.prop('scrollHeight');
-
-						$("#scroll-indicator").slideUp("fast");
 						
 						if (delta < 0 && slideHeight + scrollTop === scrollHeight){
 							if(_scrollDelayed){
 								_swipePane.swipeNext();
-							}
-							else{
-								if(_dataIndex < Highways.data.length - 1){
-									$("#scroll-indicator").slideDown("fast");
-								}
 							}
 							_scrollDelayed = true;
 							delayScroll();
@@ -129,7 +144,35 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 				basemap: "streets",
 				center: [Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],
 				zoom: Highways.data[_dataIndex].zoom,
-				maxZoom: 17
+				maxZoom: 17,
+				smartNavigation: false
+			});
+
+			_locations = new GraphicsLayer();
+			_map.addLayer(_locations);
+
+			dojo.forEach(Highways.data,function(ftr,i){
+				if (i > 0){
+					var pt = new Point(ftr.long,ftr.lat);
+					var sym = new PictureMarkerSymbol('resources/images/redPin.png', 30, 30).setOffset(0,12);
+					var attr = ftr;
+
+					var graphic = new Graphic(pt,sym,attr);
+					_locations.add(graphic);
+				}
+			});
+
+			_locations.on("click",function(e){
+				var index = $.inArray(e.graphic,_locations.graphics) + 1;
+				_swipePane.swipeTo(index);
+			});
+
+			_locations.on("mouse-over",function(e){
+				_map.setCursor("pointer");
+			});
+
+			_locations.on("mouse-out",function(e){
+				_map.setCursor("default");
 			});
 
 			_map.on("load",function(){
@@ -140,21 +183,30 @@ define(["storymaps/utils/Helper","storymaps/core/Data","dojo/has","dojo/on","esr
 
 		function appendNewSlide(index)
 		{
-			var newSlide = _swipePane.createSlide('\
-				<h1 class="item-title">'+ unescape(Highways.data[index].title) +'</h1>\
-				<p class="item-description">'+ unescape(Highways.data[index].description) +'</p>\
-			');
+			var newSlide = _swipePane.createSlide(getSlideContent(index));
 
 			newSlide.append();
+		}
+
+		function getSlideContent(index)
+		{
+			var string = '\
+				<h1 class="item-title">'+ unescape(Highways.data[index].title) +'</h1>\
+				<p class="item-description">'+ unescape(Highways.data[index].description) +'</p>\
+			';
+
+			return string;
 		}
 
 		function updateMap()
 		{
 			if (_dataIndex > 0 && _map.getBasemap() !== "satellite"){
 				_map.setBasemap("satellite");
+				_locations.hide();
 			}
 			else if(_dataIndex === 0){
 				_map.setBasemap("streets");
+				_locations.show();
 			}
 
 			_map.centerAndZoom([Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],Highways.data[_dataIndex].zoom);
