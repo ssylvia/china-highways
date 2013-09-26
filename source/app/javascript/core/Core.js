@@ -7,6 +7,7 @@ define(["storymaps/utils/Helper",
 	"esri/graphic",
 	"esri/geometry/Point",
 	"esri/symbols/PictureMarkerSymbol",
+	"esri/geometry/webMercatorUtils",
 	"lib/all/jquery/jquery-1.10.2.min.js",
 	"lib/all/jquery.mousewheel.js"],
 	function(Helper,
@@ -18,7 +19,8 @@ define(["storymaps/utils/Helper",
 		GraphicsLayer,
 		Graphic,
 		Point,
-		PictureMarkerSymbol
+		PictureMarkerSymbol,
+		GeoUtils
 		){
 
 		/**
@@ -142,7 +144,7 @@ define(["storymaps/utils/Helper",
 		{
 			_map = new Map("map",{
 				basemap: "streets",
-				center: [Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],
+				center: [getOffsetCenter().getLongitude(),getOffsetCenter().getLatitude()],
 				zoom: Highways.data[_dataIndex].zoom,
 				maxZoom: 17,
 				smartNavigation: false
@@ -161,6 +163,8 @@ define(["storymaps/utils/Helper",
 					_locations.add(graphic);
 				}
 			});
+
+			window.map = _map;
 
 			_locations.on("click",function(e){
 				var index = $.inArray(e.graphic,_locations.graphics) + 1;
@@ -209,7 +213,33 @@ define(["storymaps/utils/Helper",
 				_locations.show();
 			}
 
-			_map.centerAndZoom([Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],Highways.data[_dataIndex].zoom);
+			_map.centerAndZoom(getOffsetCenter(),Highways.data[_dataIndex].zoom);
+		}
+
+		function getOffsetCenter()
+		{
+			var res = 9783.93962049996;
+			var leftPos = 0;
+			var topPos = 0;
+
+			if(Has("touch")){
+				topPos = ($("#content").height() - $("#story-pane").position().top)/2;
+			}
+			else{
+				leftPos = ($("#content").width() - $("#story-pane").position().left)/2;
+			}
+			if(_map){
+				res = $.grep(_map.__tileInfo.lods,function(a){
+					return a.level === Highways.data[_dataIndex].zoom
+				})[0].resolution;
+			}
+			var offsetX = leftPos * res;
+			var offsetY = -topPos * res;
+			var pt = new Point([Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat]);
+			pt = GeoUtils.geographicToWebMercator(pt);
+			pt = pt.offset(offsetX,offsetY);
+
+			return pt;
 		}
 
 		return {
