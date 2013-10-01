@@ -113,3 +113,103 @@ body {
 .touch .expanded .item-description{
 	display: block;
 }
+
+#locator-wrapper{
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	padding: 5px;
+	cursor: pointer;
+	animation: showLocator .75s;
+	-webkit-animation: showLocator .75s;
+}
+
+#locator-backdrop{
+	margin-left: -5px;
+}
+
+#locator-toggle{
+	display: none;
+	position: relative;
+	color: $white;
+	font: {
+		family: $header-font;
+	}
+	text: {
+		align: right;
+	}
+	padding: {
+		top: 2px;
+		bottom: 5px;
+	}
+}
+
+.hidden #locator-toggle, #locator-wrapper:hover #locator-toggle {
+	display: block;
+}
+
+.disabled #locator-toggle {
+	display: none;
+}
+
+#locator-wrapper.hidden{
+	bottom: -225px;
+	animation: hideLocator .75s;
+	-webkit-animation: hideLocator .75s;
+}
+
+#locator-wrapper.disabled{
+	padding: {
+		top: 0;
+	}
+	bottom: -225px;
+}
+
+#locator-map{
+	position: relative;
+	background: $darkest-gray;
+	height: 220px;
+	width: 280px;
+}
+
+.icon-down-narrow, .icon-up-narrow, .icon-down-thick, .icon-up-thick{
+	font: {
+		family: "fontello";
+	}
+}
+
+.icon-toggle-arrow:before{
+	font: {
+		family: "fontello";
+	}
+	content: '\e802';
+}
+
+.hidden .icon-toggle-arrow:before{
+	content: '\e803';
+}
+
+// Locator Animations
+@keyframes showLocator
+{
+from {bottom: -225px;}
+to {bottom: 20px;}
+}
+
+@-webkit-keyframes showLocator
+{
+from {bottom: -225px;}
+to {bottom: 20px;}
+}
+
+@keyframes hideLocator
+{
+from {bottom: 20px;}
+to {bottom: -225px;}
+}
+
+@-webkit-keyframes hideLocator
+{
+from {bottom: 20px;}
+to {bottom: -225px;}
+}

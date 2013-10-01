@@ -34,6 +34,8 @@ define(["storymaps/utils/Helper",
 
 		var _swipePane;
 		var _map;
+		var _locator;
+		var _locatorGraphics;
 		var _locations;
 		var _dataIndex = 0;
 		var _scrollDelayed = false;
@@ -44,6 +46,8 @@ define(["storymaps/utils/Helper",
 			Helper.enableRegionLayout();
 			loadSwiper();
 			loadMap();
+
+			toggleLocator();
 		}
 		function loadSwiper()
 		{
@@ -185,6 +189,33 @@ define(["storymaps/utils/Helper",
 			});
 		}
 
+		function loadLocator()
+		{
+			_locator = new Map("locator-map",{
+				basemap: "streets",
+				center: [Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat],
+				slider: false,
+				zoom: 4,
+				logo: false,
+				showAttribution: false,
+				smartNavigation: false
+			});
+
+			_locatorGraphics = new GraphicsLayer();
+			_locator.addLayer(_locatorGraphics);
+
+			var pt = new Point(Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat);
+			var sym = new PictureMarkerSymbol('resources/images/redPin.png', 30, 30).setOffset(0,12);
+			var attr = Highways.data[_dataIndex];
+
+			var graphic = new Graphic(pt,sym,attr);
+			_locatorGraphics.add(graphic);
+
+			_locator.on("load",function(){
+				_locator.disableMapNavigation();
+			});
+		}
+
 		function appendNewSlide(index)
 		{
 			var newSlide = _swipePane.createSlide(getSlideContent(index));
@@ -204,13 +235,25 @@ define(["storymaps/utils/Helper",
 
 		function updateMap()
 		{
-			if (_dataIndex > 0 && _map.getBasemap() !== "satellite"){
-				_map.setBasemap("satellite");
-				_locations.hide();
+			if (_dataIndex > 0){
+				if(!_locator){
+					loadLocator();
+				}
+				else{
+					var pt = new Point(Highways.data[_dataIndex].long,Highways.data[_dataIndex].lat);
+					_locator.centerAt(pt);
+					_locatorGraphics.graphics[0].setGeometry(pt);
+				}
+				if (_map.getBasemap() !== "satellite"){
+					_map.setBasemap("satellite");
+					_locations.hide();
+				}
+				$("#locator-wrapper").removeClass("disabled");
 			}
 			else if(_dataIndex === 0){
 				_map.setBasemap("streets");
 				_locations.show();
+				$("#locator-wrapper").addClass("disabled");
 			}
 
 			_map.centerAndZoom(getOffsetCenter(),Highways.data[_dataIndex].zoom);
@@ -240,6 +283,18 @@ define(["storymaps/utils/Helper",
 			pt = pt.offset(offsetX,offsetY);
 
 			return pt;
+		}
+
+		function toggleLocator()
+		{
+			$("#locator-wrapper").click(function(){
+				if($(this).hasClass("hidden")){
+					$(this).removeClass("hidden");
+				}
+				else{
+					$(this).addClass("hidden");
+				}
+			});
 		}
 
 		return {
