@@ -38,7 +38,7 @@ define(["storymaps/utils/Helper",
 		var _locatorGraphics;
 		var _locations;
 		var _dataIndex = 0;
-		var _scrollDelayed = false;
+		var _scrollDelayed = true;
 		var _swipeOnWheelReady = true;
 
 		function init()
@@ -63,7 +63,6 @@ define(["storymaps/utils/Helper",
 			});
 
 			_swipePane = swipePane;
-			window.test = _swipePane;
 
 			for (var i=0; i < Highways.data.length; i++){
 				appendNewSlide(i);
@@ -103,6 +102,13 @@ define(["storymaps/utils/Helper",
 					}
 
 				});
+
+				$(".scroll-down").click(function(){
+					_swipePane.swipeNext();
+				});
+				$(".scroll-up").click(function(){
+					_swipePane.swipePrev();
+				});
 			}
 			else{
 				$("body").addClass("touch");
@@ -121,7 +127,7 @@ define(["storymaps/utils/Helper",
 			}
 
 			if(Has("ie") < 9){
-				$(".backdrop").fadeTo(0,"0.8");
+				$(".backdrop").fadeTo(0,"0.7");
 			}
 		}
 
@@ -167,8 +173,6 @@ define(["storymaps/utils/Helper",
 					_locations.add(graphic);
 				}
 			});
-
-			window.map = _map;
 
 			_locations.on("click",function(e){
 				var index = $.inArray(e.graphic,_locations.graphics) + 1;
@@ -229,6 +233,20 @@ define(["storymaps/utils/Helper",
 				<h1 class="item-title">'+ unescape(Highways.data[index].title) +'</h1>\
 				<p class="item-description">'+ unescape(Highways.data[index].description) +'</p>\
 			';
+
+			if(index === 0){
+				var strAppend = '<h6 id="intro-indicator" class="scroll-down">Scroll <span class="icon-down-narrow"></span></h6>';
+				string = string + strAppend;
+			}
+			else if (index === Highways.data.length - 1){
+				var strPrepend = '<h6 class="scroll-up"><span class="icon-up-narrow"></span></h6>';
+				string = strPrepend + string;
+			}
+			else {
+				var strPrepend = '<h6 class="scroll-up"><span class="icon-up-narrow"></span></h6>';
+				var strAppend = '<h6 class="scroll-down"><span class="icon-down-narrow"></span></h6>';
+				string = strPrepend + string + strAppend;
+			}
 
 			return string;
 		}
