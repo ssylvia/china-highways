@@ -40,6 +40,7 @@ define(["storymaps/utils/Helper",
 		var _dataIndex = 0;
 		var _scrollDelayed = true;
 		var _swipeOnWheelReady = true;
+		var _mobileTopOffset;
 
 		function init()
 		{
@@ -69,6 +70,7 @@ define(["storymaps/utils/Helper",
 			}
 
 			if(!Has("touch")){
+				$("body").addClass("desktop");
 				$("body").mousewheel(function(event, delta){
 
 					if (_swipeOnWheelReady){
@@ -112,22 +114,26 @@ define(["storymaps/utils/Helper",
 			}
 			else{
 				$("body").addClass("touch");
-				$("#story-pane").height($(".swiper-slide-active .item-title").outerHeight() + 30);
+				$("#story-pane").height($(".swiper-slide-active .item-title").outerHeight() + $(".swiper-slide-active .text-inicator").outerHeight() + 30);
 				_swipePane.resizeFix();
 
-				$(".swiper-slide").click(function(){
-					if ($("#story-pane").hasClass("expanded")){
-						$("#story-pane").removeClass("expanded").height($(".swiper-slide-active .item-title").outerHeight() + 30);
+				_mobileTopOffset = ($("#content").height() - $("#story-pane").position().top)/2;;
+
+				$(".swiper-slide").on({"touchstart" : function(){
+					if ($("body").hasClass("expanded")){
+						$("body").removeClass("expanded")
+						$("#story-pane").height($(".swiper-slide-active .item-title").outerHeight() + $(".swiper-slide-active .text-inicator").outerHeight() + 30);
 					}
 					else{
-						$("#story-pane").addClass("expanded").css("height", "100%");
+						$("body").addClass("expanded")
+						$("#story-pane").css("height", "100%");
 					}
 					_swipePane.resizeFix();
-				});
+				}});
 			}
 
 			if(Has("ie") < 9){
-				$(".backdrop").fadeTo(0,"0.7");
+				$(".backdrop").fadeTo(0,"0.8");
 			}
 		}
 
@@ -234,18 +240,26 @@ define(["storymaps/utils/Helper",
 				<p class="item-description">'+ unescape(Highways.data[index].description) +'</p>\
 			';
 
-			if(index === 0){
-				var strAppend = '<h6 id="intro-indicator" class="scroll-down">Scroll <span class="icon-down-narrow"></span></h6>';
+			if(Has("touch")){
+				var strAppend = '\
+				<p class="text-inicator"><span class="icon-info-circled" style="margin-left: 0;"></span>Tap for details <span class="icon-left-narrow"></span><span class="icon-right-narrow" style="margin-left: -.7em;"></span>Swipe to explore</p>\
+				<h6 class="mobile-details-close">Tap to Close</h6>';
 				string = string + strAppend;
 			}
-			else if (index === Highways.data.length - 1){
-				var strPrepend = '<h6 class="scroll-up"><span class="icon-up-narrow"></span></h6>';
-				string = strPrepend + string;
-			}
-			else {
-				var strPrepend = '<h6 class="scroll-up"><span class="icon-up-narrow"></span></h6>';
-				var strAppend = '<h6 class="scroll-down"><span class="icon-down-narrow"></span></h6>';
-				string = strPrepend + string + strAppend;
+			else{
+				if(index === 0){
+					var strAppend = '<h6 id="intro-indicator" class="scroll-down">Scroll <span class="icon-down-narrow"></span></h6>';
+					string = string + strAppend;
+				}
+				else if (index === Highways.data.length - 1){
+					var strPrepend = '<h6 class="scroll-up"><span class="icon-up-narrow"></span></h6>';
+					string = strPrepend + string;
+				}
+				else {
+					var strPrepend = '<h6 class="scroll-up"><span class="icon-up-narrow"></span></h6>';
+					var strAppend = '<h6 class="scroll-down"><span class="icon-down-narrow"></span></h6>';
+					string = strPrepend + string + strAppend;
+				}
 			}
 
 			return string;
@@ -284,7 +298,7 @@ define(["storymaps/utils/Helper",
 			var topPos = 0;
 
 			if(Has("touch")){
-				topPos = ($("#content").height() - $("#story-pane").position().top)/2;
+				topPos = _mobileTopOffset;
 			}
 			else{
 				leftPos = ($("#content").width() - $("#story-pane").position().left)/2;
@@ -305,14 +319,19 @@ define(["storymaps/utils/Helper",
 
 		function toggleLocator()
 		{
-			$("#locator-wrapper").click(function(){
-				if($(this).hasClass("hidden")){
-					$(this).removeClass("hidden");
-				}
-				else{
-					$(this).addClass("hidden");
-				}
-			});
+			if(Has("touch")){
+				// TODO: touch toggle
+			}
+			else{
+				$("#locator-wrapper").click(function(){
+					if($(this).hasClass("hidden")){
+						$(this).removeClass("hidden");
+					}
+					else{
+						$(this).addClass("hidden");
+					}
+				});
+			}
 		}
 
 		return {

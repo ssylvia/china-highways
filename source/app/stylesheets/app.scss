@@ -32,8 +32,12 @@ body {
 	bottom: 15%;
 }
 
-.touch #story-pane.expanded{
+.touch.expanded #story-pane{
 	bottom: 0;
+}
+
+.expanded .esriSimpleSlider, .expanded .esriControlsBR{
+	display: none;
 }
 
 .touch #scroll-indicator{
@@ -48,7 +52,7 @@ body {
 	top: 0;
 	height: 100%;
 	width: 100%;
-	@include opacity(0.7);
+	@include opacity(0.8);
 }
 
 .swiper-container{
@@ -63,6 +67,10 @@ body {
 }
 
 .touch .swiper-slide{
+	overflow: hidden;
+}
+
+.touch.expanded .swiper-slide{
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 }
@@ -132,7 +140,30 @@ body {
 	}
 }
 
-.touch .scroll-up, .touch .scroll-down{
+.text-inicator{
+	color: $lighter-gray;
+	margin: {
+		left: 15px;
+		top: -1em;
+	}
+}
+
+.mobile-details-close{
+	display: none;
+	color: $white;
+	font: {
+		size: 1.25em;
+	}
+	text: {
+		align: center;
+	}
+}
+
+.expanded .mobile-details-close{
+	display: block;
+}
+
+.expanded .text-inicator{
 	display: none;
 }
 
@@ -143,8 +174,8 @@ body {
 	text-overflow: ellipsis;
 }
 
-.touch .expanded .item-title{
-	margin: 5%;
+.touch.expanded .item-title{
+	margin: 10%;
 	white-space: normal;
 	overflow: hidden;
 	text-overflow: inherit;
@@ -152,10 +183,10 @@ body {
 
 .touch .item-description{
 	display: none;
-	margin: 5%;
+	margin: 10%;
 }
 
-.touch .expanded .item-description{
+.touch.expanded .item-description{
 	display: block;
 }
 
@@ -165,8 +196,11 @@ body {
 	left: 20px;
 	padding: 5px;
 	cursor: pointer;
+}
+
+.desktop #locator-wrapper{
 	animation: showLocator .75s;
-	-webkit-animation: showLocator .75s;
+	-webkit-animation: showLocator .75s;	
 }
 
 #locator-backdrop{
@@ -197,7 +231,7 @@ body {
 	display: none;
 }
 
-#locator-wrapper.hidden{
+.desktop #locator-wrapper.hidden{
 	bottom: -225px;
 	animation: hideLocator .75s;
 	-webkit-animation: hideLocator .75s;
@@ -210,6 +244,10 @@ body {
 	bottom: -225px;
 }
 
+.expanded #locator-wrapper{
+	display: none;
+}
+
 #locator-map{
 	position: relative;
 	background: $darkest-gray;
@@ -217,7 +255,7 @@ body {
 	width: 280px;
 }
 
-.icon-down-narrow, .icon-up-narrow, .icon-down-thick, .icon-up-thick{
+.icon-down-narrow, .icon-up-narrow, .icon-down-thick, .icon-up-thick, .icon-info-circled, .icon-info{
 	font: {
 		family: "fontello";
 	}
