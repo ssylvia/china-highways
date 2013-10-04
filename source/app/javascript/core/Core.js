@@ -1,7 +1,11 @@
 define(["storymaps/utils/Helper",
 	"storymaps/core/Data",
-	"dojo/has","dojo/on",
+	"dojo/query",
+	"dojo/has",
+	"dojo/on",
+	"dojox/gesture/tap",
 	"dojo/sniff",
+	"dojo/dnd/move",
 	"esri/map",
 	"esri/layers/GraphicsLayer",
 	"esri/graphic",
@@ -12,9 +16,12 @@ define(["storymaps/utils/Helper",
 	"lib/all/jquery.mousewheel.js"],
 	function(Helper,
 		Highways,
+		Query,
 		Has,
 		On,
+		Tap,
 		Sniff,
+		Move,
 		Map,
 		GraphicsLayer,
 		Graphic,
@@ -59,11 +66,27 @@ define(["storymaps/utils/Helper",
 				onSlideChangeEnd: function(swiper){
 					_dataIndex = swiper.activeIndex;
 					updateMap();
+					updateProgressBar();
 					_swipePane.resizeFix();
 				}
 			});
 
 			_swipePane = swipePane;
+
+			var progressHandle = new Move.constrainedMoveable(dojo.byId("progress-handle"),{
+				constraints: function(){
+					var bb = {
+						t: 0,
+						l: 0,
+						h: $("#progress-wrapper").height(),
+						w: 0
+					}
+					return bb;
+				}
+			});
+			progressHandle.onMove = function(e,topLeft){
+				updateProgressBar(topLeft.t);
+			}
 
 			for (var i=0; i < Highways.data.length; i++){
 				appendNewSlide(i);
@@ -117,9 +140,9 @@ define(["storymaps/utils/Helper",
 				$("#story-pane").height($(".swiper-slide-active .item-title").outerHeight() + $(".swiper-slide-active .text-inicator").outerHeight() + 30);
 				_swipePane.resizeFix();
 
-				_mobileTopOffset = ($("#content").height() - $("#story-pane").position().top)/2;;
+				_mobileTopOffset = ($("#content").height() - $("#story-pane").position().top)/2;
 
-				$(".swiper-slide").on({"touchstart" : function(){
+				$(".swiper-slide").click(function(){
 					if ($("body").hasClass("expanded")){
 						$("body").removeClass("expanded")
 						$("#story-pane").height($(".swiper-slide-active .item-title").outerHeight() + $(".swiper-slide-active .text-inicator").outerHeight() + 30);
@@ -129,7 +152,7 @@ define(["storymaps/utils/Helper",
 						$("#story-pane").css("height", "100%");
 					}
 					_swipePane.resizeFix();
-				}});
+				});
 			}
 
 			if(Has("ie") < 9){
@@ -185,13 +208,15 @@ define(["storymaps/utils/Helper",
 				_swipePane.swipeTo(index);
 			});
 
-			_locations.on("mouse-over",function(e){
-				_map.setCursor("pointer");
-			});
+			if (!Has("touch")){
+				_locations.on("mouse-over",function(e){
+					_map.setCursor("pointer");
+				});
 
-			_locations.on("mouse-out",function(e){
-				_map.setCursor("default");
-			});
+				_locations.on("mouse-out",function(e){
+					_map.setCursor("default");
+				});
+			}
 
 			_map.on("load",function(){
 				_map.disableScrollWheelZoom();
@@ -263,6 +288,27 @@ define(["storymaps/utils/Helper",
 			}
 
 			return string;
+		}
+		
+		function updateProgressBar(pos)
+		{
+			if(Has("touch")){
+
+			}
+			else{
+				var height = pos || (($("#progress-wrapper").height()/(Highways.data.length - 1))*_dataIndex);
+				if(height >= 0 && height <= $("#progress-wrapper").height()){
+					$("#progress-bar").height(height);
+					$("#progress-handle").css("top",height);
+					if(pos){
+						var delta = ($("#progress-wrapper").height()/(Highways.data.length - 1));
+						var index = Math.round(pos/delta);
+						if(_swipePane.activeIndex !== index){
+							_swipePane.swipeTo(index);
+						}
+					}
+				}
+			}
 		}
 
 		function updateMap()

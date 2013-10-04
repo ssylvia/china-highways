@@ -1,5 +1,6 @@
 @import "compass/css3/opacity";
 @import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
 
 @import "base";
 @import "storymaps";
@@ -20,7 +21,8 @@ body {
 	height: 100%;
 	width: 23%;
 	min-width: 300px;
-	max-width: 450px; 
+	max-width: 450px;
+	padding-right: 15px;
 	z-index: 100;
 }
 
@@ -30,6 +32,7 @@ body {
 	min-width: none;
 	right: auto;
 	bottom: 15%;
+	padding-right: 0;
 }
 
 .touch.expanded #story-pane{
@@ -42,6 +45,40 @@ body {
 
 .touch #scroll-indicator{
 	display: none;
+}
+
+#progress-wrapper{
+	position: absolute;
+	top: 1%;
+	width: 4px;
+	height: 98%;
+	right: 11px;
+	@include opacity(0.4);
+	overflow: visible;
+}
+
+#progress-bar{
+	width: 100%;
+	background-color: $white;
+}
+
+#progress-handle{
+	position: absolute;
+	height: 30px;
+	width: 30px;
+	margin-left: -13px;
+	margin-top: -15px;
+	@include border-radius(15px);
+	cursor: move;
+}
+
+#progress-point{
+	height: 12px;
+	width: 12px;
+	margin-left: 9px;
+	margin-top: 9px;
+	background-color: $white;
+	@include border-radius(6px);
 }
 
 .backdrop{
