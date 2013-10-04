@@ -47,13 +47,22 @@ body {
 	display: none;
 }
 
-#progress-wrapper{
+#progress-container{
 	position: absolute;
 	top: 1%;
-	width: 4px;
+	width: 20px;
 	height: 98%;
-	right: 11px;
+	right: 0;
 	@include opacity(0.4);
+	overflow: visible;
+}
+
+#progress-wrapper{
+	position: absolute;
+	top: 0;
+	width: 4px;
+	height: 100%;
+	right: 8px;
 	overflow: visible;
 }
 

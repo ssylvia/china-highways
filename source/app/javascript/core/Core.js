@@ -87,6 +87,13 @@ define(["storymaps/utils/Helper",
 			progressHandle.onMove = function(e,topLeft){
 				updateProgressBar(topLeft.t);
 			}
+			progressHandle.onMoveStop = function(){
+				var delta = ($("#progress-wrapper").height()/(Highways.data.length - 1));
+				var pos = Math.round($("#progress-handle").position().top/delta);
+				var newPos = pos*delta
+				$("#progress-bar").height(newPos);
+				$("#progress-handle").css("top",newPos);
+			}
 
 			for (var i=0; i < Highways.data.length; i++){
 				appendNewSlide(i);
@@ -133,6 +140,11 @@ define(["storymaps/utils/Helper",
 				});
 				$(".scroll-up").click(function(){
 					_swipePane.swipePrev();
+				});
+
+				$("#progress-container").click(function(e){
+					var pos = e.clientY - $(this).position().top;
+					updateProgressBar(pos,true);
 				});
 			}
 			else{
@@ -290,7 +302,7 @@ define(["storymaps/utils/Helper",
 			return string;
 		}
 		
-		function updateProgressBar(pos)
+		function updateProgressBar(pos,fromClick)
 		{
 			if(Has("touch")){
 
@@ -298,8 +310,10 @@ define(["storymaps/utils/Helper",
 			else{
 				var height = pos || (($("#progress-wrapper").height()/(Highways.data.length - 1))*_dataIndex);
 				if(height >= 0 && height <= $("#progress-wrapper").height()){
-					$("#progress-bar").height(height);
-					$("#progress-handle").css("top",height);
+					if(!fromClick){
+						$("#progress-bar").height(height);
+						$("#progress-handle").css("top",height);
+					}
 					if(pos){
 						var delta = ($("#progress-wrapper").height()/(Highways.data.length - 1));
 						var index = Math.round(pos/delta);
