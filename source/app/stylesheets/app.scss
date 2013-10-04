@@ -301,20 +301,20 @@ body {
 	width: 280px;
 }
 
-.icon-down-narrow, .icon-up-narrow, .icon-down-thick, .icon-up-thick, .icon-info-circled, .icon-info{
+.fontello-down-narrow, .fontello-up-narrow, .fontello-down-thick, .fontello-up-thick, .fontello-info-circled, .fontello-info{
 	font: {
 		family: "fontello";
 	}
 }
 
-.icon-toggle-arrow:before{
+.fontello-toggle-arrow:before{
 	font: {
 		family: "fontello";
 	}
 	content: '\e802';
 }
 
-.hidden .icon-toggle-arrow:before{
+.hidden .fontello-toggle-arrow:before{
 	content: '\e803';
 }
 

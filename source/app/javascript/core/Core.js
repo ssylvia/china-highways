@@ -279,22 +279,22 @@ define(["storymaps/utils/Helper",
 
 			if(Has("touch")){
 				var strAppend = '\
-				<p class="text-inicator"><span class="icon-info-circled" style="margin-left: 0;"></span>Tap for details <span class="icon-left-narrow"></span><span class="icon-right-narrow" style="margin-left: -.7em;"></span>Swipe to explore</p>\
+				<p class="text-inicator"><span class="fontello-info-circled" style="margin-left: 0;"></span>Tap for details <span class="fontello-left-narrow"></span><span class="fontello-right-narrow" style="margin-left: -.7em;"></span>Swipe to explore</p>\
 				<h6 class="mobile-details-close">Tap to Close</h6>';
 				string = string + strAppend;
 			}
 			else{
 				if(index === 0){
-					var strAppend = '<h6 id="intro-indicator" class="scroll-down">Scroll <span class="icon-down-narrow"></span></h6>';
+					var strAppend = '<h6 id="intro-indicator" class="scroll-down">Scroll <span class="fontello-down-narrow"></span></h6>';
 					string = string + strAppend;
 				}
 				else if (index === Highways.data.length - 1){
-					var strPrepend = '<h6 class="scroll-up"><span class="icon-up-narrow"></span></h6>';
+					var strPrepend = '<h6 class="scroll-up"><span class="fontello-up-narrow"></span></h6>';
 					string = strPrepend + string;
 				}
 				else {
-					var strPrepend = '<h6 class="scroll-up"><span class="icon-up-narrow"></span></h6>';
-					var strAppend = '<h6 class="scroll-down"><span class="icon-down-narrow"></span></h6>';
+					var strPrepend = '<h6 class="scroll-up"><span class="fontello-up-narrow"></span></h6>';
+					var strAppend = '<h6 class="scroll-down"><span class="fontello-down-narrow"></span></h6>';
 					string = strPrepend + string + strAppend;
 				}
 			}

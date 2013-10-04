@@ -1,10 +1,11 @@
 
-.icon-info-circled:before { content: '\e805'; } /* '' */
-.icon-info:before { content: '\e804'; } /* '' */
-.icon-link:before { content: '\e808'; } /* '' */
-.icon-facebook:before { content: '\e806'; } /* '' */
-.icon-twitter:before { content: '\e807'; } /* '' */
-.icon-down-narrow:before { content: '\e802'; } /* '' */
-.icon-left-narrow:before { content: '\e80a'; } /* '' */
-.icon-right-narrow:before { content: '\e809'; } /* '' */
-.icon-up-narrow:before { content: '\e803'; } /* '' */
+.fontello-info-circled:before { content: '\e805'; } /* '' */
+.fontello-info:before { content: '\e804'; } /* '' */
+.fontello-link:before { content: '\e808'; } /* '' */
+.fontello-globe:before { content: '\e800'; } /* '' */
+.fontello-facebook:before { content: '\e806'; } /* '' */
+.fontello-twitter:before { content: '\e807'; } /* '' */
+.fontello-down-narrow:before { content: '\e802'; } /* '' */
+.fontello-left-narrow:before { content: '\e80a'; } /* '' */
+.fontello-right-narrow:before { content: '\e809'; } /* '' */
+.fontello-up-narrow:before { content: '\e803'; } /* '' */
