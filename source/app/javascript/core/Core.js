@@ -169,6 +169,8 @@ define(["storymaps/utils/Helper",
 
 			if(Has("ie") < 9){
 				$(".backdrop").fadeTo(0,"0.8");
+				$("#progress-bar").css("background-color","#777");
+				$("#progress-point").css("background-color","#777");
 			}
 		}
 
@@ -361,7 +363,7 @@ define(["storymaps/utils/Helper",
 				topPos = _mobileTopOffset;
 			}
 			else{
-				leftPos = ($("#content").width() - $("#story-pane").position().left)/2;
+				leftPos = ($("#content").width() - $("#story-wrapper").position().left)/2;
 			}
 			if(_map){
 				res = $.grep(_map.__tileInfo.lods,function(a){

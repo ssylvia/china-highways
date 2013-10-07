@@ -9,17 +9,17 @@ trackingId: UA-26529417-1
 # META & OPENGRAPH TAGS
 
 # title of story map
-metaTitle: China Highways
+metaTitle: Exploring China's Burgeoning Highway System
 # Author of story map
 metaAuthor: Esri
 # Keywords to define story map
-metaKeywords: Story Map
+metaKeywords: "China Highways, Map, Story Map"
 # Description of story map
-metaDescription: Add description for app
+metaDescription: "In the 21st century, China is poised to become the global leader in transportation infrastructure—at the end of 2012, China’s highway system had already surpassed the total amount of kilometers of highways in the United States."
 # Permanent URL of app. Will be used as default URL when shared on Facebook and Twitter
-metaSocialURL: http://storymaps.esri.com
+metaSocialURL: http://storymaps.esri.com/stories/2013/chinahighways
 # Permanent URL of app thumbnail. This is the thumbnail to be used when app is shared to Facebook and Twitter
-metaThumbnailURL: http://sample.com/thumbnail.png
+metaThumbnailURL: http://storymaps.esri.com/stories/2013/chinahighways/resources/images/thumbnail.png
 # Website/Organization's name to be used in sharing to Facebook and Twitter
 metaSiteName: Esri
 # Twitter Handle to be used while sharing app on Twitter
@@ -33,6 +33,6 @@ metaShortcutURL: //resources.esri.com/favicon.ico
 # BANNER CONFIGURATION
 
 # App title, leave black to use webmap title
-title: Add title here
+title: Exploring China's Burgeoning Highway System
 # App subtitle, leave black to use webmap subtitle
-subtitle: Add a subtitle here!
+subtitle: "In the 21st century, China is poised to become the global leader in transportation infrastructure—at the end of 2012, China’s highway system had already surpassed the total amount of kilometers of highways in the United States."

@@ -8,21 +8,38 @@
 	<div id="locator-toggle">Overview Map<span class="fontello-toggle-arrow"></span></div>
 	<div id="locator-map"></div>
 </div>
-<div id="story-pane">
+<div id="story-wrapper">
 
-	<div class="swiper-container">
-		<div class="swiper-wrapper">
-			
-		</div><!--/swiper-wrapper-->
-	</div><!--/swiper-container-->
-
-	<div class="backdrop"></div>
-
-	<div id="progress-container">
-		<div id="progress-wrapper">
-			<div id="progress-bar"></div>
-			<div id="progress-handle"><div id="progress-point"></div></div>
+	<div id="social" class="region-top">
+		<div class="backdrop"></div>
+		<div class="social-text">
+			<a id="smLink" href="http://storymaps.esri.com" target="_blank">A story map</a>&nbsp;
+			<span class="icon-facebook social-share"></span>
+			<span class="icon-twitter social-share"></span>
+			<span class="icon-share social-share"></span>
+			<a id="logoLink" href="http://www.esri.com" target="_blank">
+				<img id="logoImg" src="resources/images/esriGlobeLogow.png" alt="Esri - Home">
+			</a><!--/logoLink-->
 		</div>
 	</div>
 
-</div><!--/story-pane-->
+	<div id="story-pane" class="region-center">
+
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				
+			</div><!--/swiper-wrapper-->
+		</div><!--/swiper-container-->
+
+		<div class="backdrop"></div>
+
+		<div id="progress-container">
+			<div id="progress-wrapper">
+				<div id="progress-bar"></div>
+				<div id="progress-handle"><div id="progress-point"></div></div>
+			</div>
+		</div>
+
+	</div><!--/story-pane-->
+
+</div><!--/story-wrapper-->

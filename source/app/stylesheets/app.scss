@@ -11,32 +11,66 @@ body {
 	}
 }
 
+a {
+	color: $light-blue;
+	&:hover {
+		color: $blue;
+	}
+}
+
 #map .container{
 	max-width: none;
 }
 
-#story-pane{
+#story-wrapper{
 	position: absolute;
 	right: 10%;
 	height: 100%;
 	width: 23%;
 	min-width: 300px;
 	max-width: 450px;
-	padding-right: 15px;
-	z-index: 100;
 }
 
-.touch #story-pane{
+.touch #story-wrapper{
 	width: 100%;
 	max-width: none;
 	min-width: none;
 	right: auto;
 	bottom: 15%;
-	padding-right: 0;
 }
 
-.touch.expanded #story-pane{
+.touch.expanded #story-wrapper{
 	bottom: 0;
+}
+
+#social{
+	width: 100%;
+	padding-right: 15px;
+	margin: 0;
+	border-bottom: 1px solid $lighter-gray;
+	z-index: 101;
+}
+
+.social-text{
+	position: relative;
+	margin: 15px 10%;
+}
+
+#logoLink{
+	float: right;
+	margin:{
+		top: -7px;
+		right: -15px;
+	}
+}
+
+#story-pane{
+	padding-right: 15px;
+	z-index: 100;
+}
+
+.touch #story-pane{
+	padding-right: 0;
 }
 
 .expanded .esriSimpleSlider, .expanded .esriControlsBR{
@@ -148,9 +182,6 @@ body {
 	font: {
 		size: 1.1em;
 		family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	}
-	text:{
-		align: justify;
 	}
 }
 
