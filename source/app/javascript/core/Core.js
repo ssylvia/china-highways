@@ -99,7 +99,31 @@ define(["storymaps/utils/Helper",
 				appendNewSlide(i);
 			}
 
-			if(!Has("touch")){
+			if(Has("touch")){
+				$("body").addClass("touch");
+				$("#story-pane").removeClass("region-center").css({
+					"height": "100%",
+					"width": "100%"
+				});
+				Helper.resetRegionLayout();
+				$("#story-wrapper").height($(".swiper-slide-active .item-title").outerHeight() + $(".swiper-slide-active .text-inicator").outerHeight() + 30);
+				_swipePane.resizeFix();
+
+				_mobileTopOffset = ($("#content").height() - $("#story-wrapper").position().top)/2;
+
+				$(".swiper-slide").click(function(){
+					if ($("body").hasClass("expanded")){
+						$("body").removeClass("expanded")
+						$("#story-wrapper").height($(".swiper-slide-active .item-title").outerHeight() + $(".swiper-slide-active .text-inicator").outerHeight() + 30);
+					}
+					else{
+						$("body").addClass("expanded")
+						$("#story-wrapper").css("height", "100%");
+					}
+					_swipePane.resizeFix();
+				});
+			}
+			else{
 				$("body").addClass("desktop");
 				$("body").mousewheel(function(event, delta){
 
@@ -147,25 +171,6 @@ define(["storymaps/utils/Helper",
 					updateProgressBar(pos,true);
 				});
 			}
-			else{
-				$("body").addClass("touch");
-				$("#story-pane").height($(".swiper-slide-active .item-title").outerHeight() + $(".swiper-slide-active .text-inicator").outerHeight() + 30);
-				_swipePane.resizeFix();
-
-				_mobileTopOffset = ($("#content").height() - $("#story-pane").position().top)/2;
-
-				$(".swiper-slide").click(function(){
-					if ($("body").hasClass("expanded")){
-						$("body").removeClass("expanded")
-						$("#story-pane").height($(".swiper-slide-active .item-title").outerHeight() + $(".swiper-slide-active .text-inicator").outerHeight() + 30);
-					}
-					else{
-						$("body").addClass("expanded")
-						$("#story-pane").css("height", "100%");
-					}
-					_swipePane.resizeFix();
-				});
-			}
 
 			if(Has("ie") < 9){
 				$(".backdrop").fadeTo(0,"0.8");
@@ -176,7 +181,7 @@ define(["storymaps/utils/Helper",
 
 		function getSwipeMode()
 		{
-			if (Has("touch")){
+			if (true || Has("touch")){
 				return 'horizontal';
 			}
 			else{

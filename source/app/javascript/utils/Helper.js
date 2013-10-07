@@ -19,8 +19,8 @@ define(["storymaps/utils/SocialSharing","lib/all/jquery/jquery-1.10.2.min.js"],
 				x = l + r,
 				y = t + b;
 			$(this).css({
-				"top": t,
-				"left": l,
+				"top": t || 0,
+				"left": l || 0,
 				"height" : $(this).parent().outerHeight() - y,
 				"width" : $(this).parent().outerWidth() - x
 			});
@@ -35,6 +35,11 @@ define(["storymaps/utils/SocialSharing","lib/all/jquery/jquery-1.10.2.min.js"],
 			$(window).resize(function(){
 				regionLayout();
 			});
+		},
+
+		resetRegionLayout: function()
+		{
+			regionLayout();
 		},
 
 		syncMaps: function(maps,currentMap,extent)
