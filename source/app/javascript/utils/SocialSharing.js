@@ -45,7 +45,7 @@ define(["lib/all/jquery/jquery-1.10.2.min.js"],
 		});
 	}
 
-	$("#social .social-share").click(function(){
+	$(".social-share").click(function(){
 		if ($(this).hasClass("icon-facebook")) {
 			var facebookOptions = '&p[title]=' + _shareOptions.title
 				+ '&p[summary]=' + _shareOptions.summary

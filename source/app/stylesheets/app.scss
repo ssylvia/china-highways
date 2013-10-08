@@ -68,6 +68,28 @@ a {
 	}
 }
 
+#mobile-social{
+	display: none;
+	position: absolute;
+	width: 14em;
+	top: 85%;
+	left: 0;
+	@include border-bottom-right-radius(0.8em);
+	overflow: hidden;
+}
+
+.touch .social-share{
+	margin-left: 0.8em;
+}
+
+.touch #mobile-social{
+	display: block;
+}
+
+.touch.expanded #mobile-social{
+	display: none;
+}
+
 #story-pane{
 	padding-right: 15px;
 	z-index: 100;
@@ -93,6 +115,10 @@ a {
 	right: 0;
 	@include opacity(0.4);
 	overflow: visible;
+}
+
+.touch #progress-container{
+	display: none;
 }
 
 #progress-wrapper{
@@ -334,6 +360,60 @@ a {
 	background: $darkest-gray;
 	height: 220px;
 	width: 280px;
+}
+
+#mobile-locator-toggle{
+	display: none;
+	position: absolute;
+	top: 250px;
+	color: $white;
+	right: 20px;
+	padding: {
+		top: 10px;
+		right: 10px;
+		bottom: 10px;
+	}
+	@include border-bottom-right-radius(10px);
+	@include border-bottom-left-radius(10px);
+	overflow: hidden;
+}
+
+.touch #mobile-locator-toggle.hidden{
+	top: 20px;
+	right: 0;
+	@include border-top-left-radius(10px);
+	@include border-bottom-right-radius(0);
+	overflow: hidden;
+}
+
+.touch #mobile-locator-toggle{
+	display: block;
+}
+
+#mobile-locator-toggle .icon-map-pin, #mobile-locator-toggle .icon-close{
+	position: relative;
+	font-size: 1.5em;
+	line-height: 0;
+	margin-left: 10px;
+}
+
+.touch #locator-wrapper{
+	top: 20px;
+	bottom: auto;
+	left: auto;
+	right: 20px;
+	z-index: 100;
+}
+
+.touch #locator-wrapper.disabled, .touch #locator-wrapper.hidden{
+	padding: {
+		top: 5px;
+	}
+	right: -290px;
+}
+
+.touch #locator-toggle, .touch #locator-wrapper:hover #locator-toggle ,#mobile-locator-toggle.disabled, .expanded #mobile-locator-toggle {
+	display: none;
 }
 
 .fontello-down-narrow, .fontello-up-narrow, .fontello-down-thick, .fontello-up-thick, .fontello-info-circled, .fontello-info{

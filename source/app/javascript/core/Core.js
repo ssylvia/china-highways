@@ -122,6 +122,19 @@ define(["storymaps/utils/Helper",
 					}
 					_swipePane.resizeFix();
 				});
+
+				On(dojo.byId("mobile-locator-toggle"),Tap,function(){
+					if($("#mobile-locator-toggle").hasClass("hidden")){
+						$(this).removeClass("hidden");
+						$("#locator-wrapper").removeClass("hidden");
+						$("#mobile-locator-toggle .icon-map-pin").addClass("icon-close").removeClass("icon-map-pin");
+					}
+					else{
+						$(this).addClass("hidden");
+						$("#locator-wrapper").addClass("hidden");
+						$("#mobile-locator-toggle .icon-close").addClass("icon-map-pin").removeClass("icon-close");
+					}
+				});
 			}
 			else{
 				$("body").addClass("desktop");
@@ -181,7 +194,7 @@ define(["storymaps/utils/Helper",
 
 		function getSwipeMode()
 		{
-			if (true || Has("touch")){
+			if (Has("touch")){
 				return 'horizontal';
 			}
 			else{
@@ -347,11 +360,13 @@ define(["storymaps/utils/Helper",
 					_map.setBasemap("satellite");
 					_locations.hide();
 				}
+				$("#mobile-locator-toggle").removeClass("disabled");
 				$("#locator-wrapper").removeClass("disabled");
 			}
 			else if(_dataIndex === 0){
 				_map.setBasemap("streets");
 				_locations.show();
+				$("#mobile-locator-toggle").addClass("disabled");
 				$("#locator-wrapper").addClass("disabled");
 			}
 
