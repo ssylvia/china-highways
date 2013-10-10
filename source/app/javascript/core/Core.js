@@ -122,23 +122,12 @@ define(["storymaps/utils/Helper",
 					}
 					_swipePane.resizeFix();
 				});
-
-				On(dojo.byId("mobile-locator-toggle"),Tap,function(){
-					if($("#mobile-locator-toggle").hasClass("hidden")){
-						$(this).removeClass("hidden");
-						$("#locator-wrapper").removeClass("hidden");
-						$("#mobile-locator-toggle .icon-map-pin").addClass("icon-close").removeClass("icon-map-pin");
-					}
-					else{
-						$(this).addClass("hidden");
-						$("#locator-wrapper").addClass("hidden");
-						$("#mobile-locator-toggle .icon-close").addClass("icon-map-pin").removeClass("icon-close");
-					}
-				});
 			}
 			else{
 				$("body").addClass("desktop");
 				$("body").mousewheel(function(event, delta){
+
+					event.preventDefault();
 
 					if (_swipeOnWheelReady){
 					
@@ -402,7 +391,18 @@ define(["storymaps/utils/Helper",
 		function toggleLocator()
 		{
 			if(Has("touch")){
-				// TODO: touch toggle
+				On(dojo.byId("mobile-locator-toggle"),Tap,function(){
+					if($("#mobile-locator-toggle").hasClass("hidden")){
+						$(this).removeClass("hidden");
+						$("#locator-wrapper").removeClass("hidden");
+						$("#mobile-locator-toggle .icon-map-pin").addClass("icon-close").removeClass("icon-map-pin");
+					}
+					else{
+						$(this).addClass("hidden");
+						$("#locator-wrapper").addClass("hidden");
+						$("#mobile-locator-toggle .icon-close").addClass("icon-map-pin").removeClass("icon-close");
+					}
+				});
 			}
 			else{
 				$("#locator-wrapper").click(function(){
@@ -412,6 +412,9 @@ define(["storymaps/utils/Helper",
 					else{
 						$(this).addClass("hidden");
 					}
+				});
+				$("#locator-map").click(function(){
+					_swipePane.swipeTo(0);
 				});
 			}
 		}
